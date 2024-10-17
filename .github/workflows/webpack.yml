@@ -28,9 +28,3 @@ jobs:
           node -v
           npm install
           npm run build
-      - name: Deploy with gh-pages # 部署
-        run: |
-          git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/chenqiuling/tabLayout-keepAlive-demo.git
-          npx gh-pages -d build -u "chenqiuling <249370878@qq.com>"
-        env:
-          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
