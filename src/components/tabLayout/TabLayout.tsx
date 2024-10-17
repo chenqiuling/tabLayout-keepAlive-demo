@@ -39,6 +39,7 @@ const TabLayout: FC<{
     if (currentMenu) {
       dispatch(initLayoutTab({ menu: currentMenu, navigate }))
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const onEdit: TabsProps["onEdit"] = (targetKey, action) => {
@@ -50,7 +51,7 @@ const TabLayout: FC<{
   const menuSelectedKeys = useMemo(() => {
     const menuK = menus.find((menu) => activeTab?.startsWith(menu.key))?.key
     return menuK ? [menuK] : []
-  }, [activeTab])
+  }, [activeTab, menus])
 
   return (
     <Layout>
