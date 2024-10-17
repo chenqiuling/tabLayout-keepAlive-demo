@@ -1,0 +1,35 @@
+name: NodeJS with Webpack
+
+on:
+  push:
+    branches: [gh-pages]
+  pull_request:
+    branches: [gh-pages]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [20.17.0]
+
+    steps:
+      - name: Checkout # 检出仓库
+        uses: actions/checkout@v2
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install and Build # 下载依赖，打包
+        run: |
+          node -v
+          npm install
+          npm run build
+      - name: Deploy with gh-pages # 部署
+        run: |
+          npx gh-pages -d tabLayout-keepAlive-demo -u "chenqiuling <249370878@qq.com>"
+        env:
+          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
