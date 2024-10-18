@@ -10,3 +10,6 @@
 
 ## 启动项目
 `npm run start`
+
+## demo
+[预览](https://chenqiuling.github.io/tabLayout-keepAlive-demo)
