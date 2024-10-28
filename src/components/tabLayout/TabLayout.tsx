@@ -20,7 +20,9 @@ const TabLayout: FC<{
   menus?: ITab[]
   cache?: boolean
   cacheKey?: string
-}> = ({ children, menus = [], cache, cacheKey }) => {
+  excludeKeys?: string[]
+  includeKeys?: string[]
+}> = ({ children, menus = [], cache, cacheKey, excludeKeys, includeKeys }) => {
   const location = useLocation()
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -92,6 +94,8 @@ const TabLayout: FC<{
           activeName={cacheKey || defaultCacheKey}
           max={10}
           strategy={"LRU"}
+          exclude={excludeKeys}
+          include={includeKeys}
         >
           {children}
         </KeepAlive>
