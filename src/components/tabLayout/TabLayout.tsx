@@ -19,10 +19,19 @@ const TabLayout: FC<{
   children: React.ReactNode
   menus?: ITab[]
   cache?: boolean
+  maxCache?: number
   cacheKey?: string
   excludeKeys?: string[]
   includeKeys?: string[]
-}> = ({ children, menus = [], cache, cacheKey, excludeKeys, includeKeys }) => {
+}> = ({
+  children,
+  menus = [],
+  cache,
+  maxCache = 10,
+  cacheKey,
+  excludeKeys,
+  includeKeys,
+}) => {
   const location = useLocation()
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -89,16 +98,18 @@ const TabLayout: FC<{
           ))}
         </Tabs>
 
-        <KeepAlive
-          cache={cache}
-          activeName={cacheKey || defaultCacheKey}
-          max={10}
-          strategy={"LRU"}
-          exclude={excludeKeys}
-          include={includeKeys}
-        >
-          {children}
-        </KeepAlive>
+        {cache ? (
+          <KeepAlive
+            activeCacheKey={cacheKey || defaultCacheKey}
+            max={maxCache}
+            exclude={excludeKeys}
+            include={includeKeys}
+          >
+            {children}
+          </KeepAlive>
+        ) : (
+          children
+        )}
       </Layout>
     </Layout>
   )
